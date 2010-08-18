@@ -85,6 +85,7 @@ class Config(dict):
 			self.__setitem__(aux[0], eval(aux[1]))
 		f.close()
 		
+		self.__setitem__("BASEPATH", os.getcwd() + self.__getitem__('BASEPATH'))
 		sys.path.append(self.__getitem__('BASEPATH'))
 		os.chdir(self.__getitem__('BASEPATH'))
 		
