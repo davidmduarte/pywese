@@ -47,7 +47,7 @@ class Http(dict):
 			self.__setitem__('FILENAME', 'root')
 		else:
 			if len(aux[0]) == 0 or aux[0] == "/": self.__setitem__('FILENAME', 'root')
-			else: self.__setitem__('FILENAME', aux[0])
+			else: self.__setitem__('FILENAME', aux[0][1:])
 			if len(aux) > 1:
 				self.__setitem__('GET', Properties(queryString = aux[1]))
 			else:
@@ -106,7 +106,7 @@ def respond(s):
 	http = Http(s)
 	print(http)
 	if http['Accept'].find("text") == -1:
-		f = open(config['BASEPATH'] + http['FILENAME'], "rb")
+		f = open(config['BASEPATH'] + "/" + http['FILENAME'], "rb")
 		s.send(f.read())
 		f.close()
 	else: 
