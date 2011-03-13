@@ -1,4 +1,6 @@
-def index(get, post):
+import pywese
+
+def index(sock):
 	return """
 	<html>
 		<head>
@@ -8,6 +10,4 @@ def index(get, post):
 		</body>
 	</html>
 	"""
-server = HttpSever("localhost", 8080)
-server.page("index.html", index)
-server.listen()
+pywese.HttpSever("localhost", 8080, index)

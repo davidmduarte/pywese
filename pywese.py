@@ -3,6 +3,7 @@ import sys
 import os
 import socket
 import thread
+import time
 
 class Properties(dict):
 	def __init__(self, **d):
@@ -89,56 +90,43 @@ class Config(dict):
 		sys.path.append(self.__getitem__('BASEPATH'))
 		os.chdir(self.__getitem__('BASEPATH'))
 		
-		
-#def debug(http):
-#	if http['__DEBUG__'] == True:
-#		while True:
-#			f = open(http['FILENAME'], "r")
-#			buf = f.read()
-#			i=1
-#			for l in buf.split("\n"):
-#				print(str(i) + " => " + l)
-#			f.close()
-#			o = raw_input("=> ")
-		
 def respond(s):
-	print("Responding..")
 	http = Http(s)
 	print(http)
-	if http['Accept'].find("text") == -1:
-		f = open(config['BASEPATH'] + "/" + http['FILENAME'], "rb")
-		s.send(f.read())
-		f.close()
-	else: 
-		m = None
-		try:
-			m = __import__(http['FILENAME'])
-			m = reload(m)
-			s.send(m.run(http))
-		except ImportError:
-			s.send("<html><body><h1>PAgE nOt fOUnd</h1></body></html>")
-		except Exception, err:
-			s.send("<html><body><b>ERROR:</b> " + str(err) + "</body></html>")
-		#buffer = "<br>".join(http.getHeaders().split("\n")) + m.run(http) 
-		#s.send(buffer)
-		#if(config['DEBUG'] == True):
-		#	thread.start_new_thread( debug, (http,))
+	html = """
+		<html>
+			<head>
+				<title>Example 1</title>
+			</head>
+			<body>
+				<h1>Example 1</h1>
+				<p>this is de first Example 1
+			</body>
+		</html>
+	"""
+	s.send(html)
 	s.close()
-	print("Responded")
+
+
+class HttpServer():
+	def __init__(self, host, port, func):
+		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		s.bind((host, port))
+		s.listen(1)
+		r = self.aux(func);
+		r.next()
+		while True:
+			print("Wait a connection")
+			conn, addr = s.accept()
+			r.send(conn)
+
+	def aux(self, func):
+		while True:
+			s = (yield)
+			print("Responding..")
+			func(s)
+			print("..Responded")
 
 if __name__ == '__main__':
 	print("Start Server.py")
-	print("Loading configurations ...")
-	config = Config()
-	print("Initializing Socket (Listening at port %d) ..." % (config['PORT']))
-	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
-	s.bind(("localhost", config['PORT'])) 
-	s.listen(1) 
-	while True:
-		print("Wait a connection")
-		conn, addr = s.accept()
-		print("Connection acepted") 
-		try:
-			thread.start_new_thread( respond, (conn,)) 
-		except:
-			print("Error: unable to start a thrread")
+	HttpServer("localhost", 8080, respond)
