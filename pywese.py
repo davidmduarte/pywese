@@ -47,8 +47,7 @@ class Http(dict):
 		if len(aux) == 0:
 			self.__setitem__('FILENAME', 'root')
 		else:
-			if len(aux[0]) == 0 or aux[0] == "/": self.__setitem__('FILENAME', 'root')
-			else: self.__setitem__('FILENAME', aux[0][1:])
+			self.__setitem__('FILENAME', aux[0][1:])
 			if len(aux) > 1:
 				self.__setitem__('GET', Properties(queryString = aux[1]))
 			else:
@@ -76,38 +75,6 @@ class Http(dict):
 		else:
 			return {}
 
-class Config(dict):
-	def __init__(self):
-		"""Esta class te que ler as configuracoes de um ficheiro mas por enquanto esta aqui predefinido"""
-		f = file("config", "r")
-		buf = f.read()
-		for line in buf.split("\n"):
-			aux = line.split("\t")
-			self.__setitem__(aux[0], eval(aux[1]))
-		f.close()
-		
-		self.__setitem__("BASEPATH", os.getcwd() + self.__getitem__('BASEPATH'))
-		sys.path.append(self.__getitem__('BASEPATH'))
-		os.chdir(self.__getitem__('BASEPATH'))
-		
-def respond(s):
-	http = Http(s)
-	print(http)
-	html = """
-		<html>
-			<head>
-				<title>Example 1</title>
-			</head>
-			<body>
-				<h1>Example 1</h1>
-				<p>this is de first Example 1
-			</body>
-		</html>
-	"""
-	s.send(html)
-	s.close()
-
-
 class HttpServer():
 	def __init__(self, host, port, func):
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -123,10 +90,6 @@ class HttpServer():
 	def aux(self, func):
 		while True:
 			s = (yield)
-			print("Responding..")
-			func(s)
-			print("..Responded")
+			s.send(func(Http(s)))
+			s.close()
 
-if __name__ == '__main__':
-	print("Start Server.py")
-	HttpServer("localhost", 8080, respond)

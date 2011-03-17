@@ -3,15 +3,18 @@ import pywese
 def index(request):
 	print("responding..")
 	print(request)
+	outVars = {
+		"loop" : "\n".join(["<h2>Teste 123</h2>" for i in xrange(10)])
+	}
 	return """
 	<html>
 		<head>
 		</head>
 		<body>
-			<h1>Teste 1 2 3</h1>
+			%(loop)s
 		</body>
 	</html>
-	"""
+	""" % outVars
 
 print("Serving example")
 pywese.HttpServer("localhost", 8080, index)
