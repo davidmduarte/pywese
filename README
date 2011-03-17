@@ -1,6 +1,29 @@
-If you, like me, love python and don't want to use php any more and if you don't want to waste time learning a new web framework, then try pywese.
-There is a subproject into this one.
-I'm develping a blog software using pywese. It was the best way that I find to verify if pywese works well
-It's in an early stage of development.... hope to modify this README soon.
+py we se => python web server
 
-(Forgive my poor inglish )  
+Examples:
+
+#----begin-----
+import pywese
+pywese.HttpServer("localhost", 8080, lambda request: "Hello web!!")
+#----end-----
+
+#----begin----
+import pywese
+
+def page(request):
+    return """"
+<html>
+  <head>
+    <title>pywese</title>
+  </head>
+  <body>
+    <h1>Example</h1>
+    <p>This pase is served by pywese</p>
+  </body>
+</html>"""
+
+pywese.HttpServer("localhost", 8080, page)
+#----end----
+
+
+
