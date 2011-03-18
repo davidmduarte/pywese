@@ -91,5 +91,6 @@ class HttpServer():
 			s = (yield)
 			s.send(func(Http(s)))
 			s.close()
-def auxFunc(r,hash):
-	for item in hash.keys:
+
+#def auxFunc(r,hash):
+#	for item in hash.keys:
