@@ -55,7 +55,6 @@ class Http(dict):
 		self.__setitem__('POST', {})
 		if self.has_key('Content-Length'):
 			self.__setitem__('POST', Properties(queryString = self.rawPost))
-
 		#print(str(self))
 
 	def getHeaders(self):
@@ -79,7 +78,7 @@ class HttpServer():
 	def __init__(self, host, port, func):
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		s.bind((host, port))
-		s.listen(1)
+		s.listen(2)
 		r = self.aux(func);
 		r.next()
 		while True:
@@ -92,4 +91,5 @@ class HttpServer():
 			s = (yield)
 			s.send(func(Http(s)))
 			s.close()
-
+def auxFunc(r,hash):
+	for item in hash.keys:
