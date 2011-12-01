@@ -4,6 +4,8 @@ import os
 import socket
 import thread
 import time
+import types
+import re
 
 class Properties(dict):
 	def __init__(self, **d):
@@ -79,18 +81,24 @@ class HttpServer():
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		s.bind((host, port))
 		s.listen(2)
-		r = self.aux(func);
-		r.next()
 		while True:
 			print("Wait a connection")
 			conn, addr = s.accept()
-			r.send(conn)
-
-	def aux(self, func):
-		while True:
-			s = (yield)
-			s.send(func(Http(s)))
-			s.close()
-
-#def auxFunc(r,hash):
-#	for item in hash.keys:
+			if type(func) == types.FunctionType:
+				thread.start_new_thread(self.simple, (conn, func,))
+			elif type(func) == types.DictType:
+				thread.start_new_thread(sel.complex, (conn, func,))
+			else:
+				pass
+			
+	def simple(self, conn, func):
+		conn.send(func(Http(conn)))
+		
+	def complex(self. conn, dicio):
+		req = Http(conn)
+		for k, v in func:
+			patern = re.compile(k)
+			if patern.match(req["FILENAME"] > 0:
+				conn.send(v(req))
+				break
+		
