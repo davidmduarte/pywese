@@ -1,12 +1,14 @@
 PyWeSe - Build custom web servers
 
-Examples:
+Example 1:
 
 #----begin-----
 # Hello web exmple
 import pywese
 pywese.HttpServer("localhost", 8080, lambda request: "Hello web!!")
 #----end-----
+
+Example 2:
 
 #----begin----
 # html pages web server example
