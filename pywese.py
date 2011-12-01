@@ -97,7 +97,7 @@ class HttpServer():
 			conn, addr = s.accept()
 			if type(func) == types.FunctionType:
 				thread.start_new_thread(self.simple, (conn, func,))
-			elif type(func) == types.DictType:
+			elif type(func) == types.ListType:
 				thread.start_new_thread(sel.complex, (conn, func,))
 			else:
 				pass
@@ -106,12 +106,12 @@ class HttpServer():
 		conn.send(func(Http(conn)))
 		conn.close()
 		
-	def complex(self. conn, dicio):
+	def complex(self. conn, arr):
 		req = Http(conn)
-		for k, v in func:
-			patern = re.compile(k)
+		for item in arr:
+			patern = re.compile(item[0])
 			if patern.match(req["FILENAME"] > 0:
-				conn.send(v(req))
+				conn.send(item[1](req))
 				conn.close()
 				break
 		
