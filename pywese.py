@@ -75,6 +75,17 @@ class Http(dict):
 			return self.__getitem__('POST')
 		else:
 			return {}
+			
+def response(code, contentType, buf):
+	codes = {
+		200 : "OK",
+		404 : "Not Found",
+		301 : "Moved Permanently",
+		302 : "Moved Temporarily",
+		303 : "See Other",
+		500 : "Server Error"
+	}
+	return "HTTP/1.0 " + str(code) + " " + codes[code] + "\r\nContent-Type: " + contentType + "\r\nContent-Length: " + str(len(buf)) + "\r\n\r\n" + buf
 
 class HttpServer():
 	def __init__(self, host, port, func):
