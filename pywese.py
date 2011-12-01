@@ -93,6 +93,7 @@ class HttpServer():
 			
 	def simple(self, conn, func):
 		conn.send(func(Http(conn)))
+		conn.close()
 		
 	def complex(self. conn, dicio):
 		req = Http(conn)
@@ -100,5 +101,6 @@ class HttpServer():
 			patern = re.compile(k)
 			if patern.match(req["FILENAME"] > 0:
 				conn.send(v(req))
+				conn.close()
 				break
 		

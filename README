@@ -1,28 +1,28 @@
-py we se => python web server
+PyWeSe - Build custom web servers
 
 Examples:
 
 #----begin-----
+# Hello web exmple
 import pywese
 pywese.HttpServer("localhost", 8080, lambda request: "Hello web!!")
 #----end-----
 
 #----begin----
+# html pages web server example
 import pywese
 
 def page(request):
-    return """"
-<html>
-  <head>
-    <title>pywese</title>
-  </head>
-  <body>
-    <h1>Example</h1>
-    <p>This pase is served by pywese</p>
-  </body>
-</html>"""
+	try:
+    	f = open(request['FILENAME'], "r")
+		buf = pywese.response(200, f.read())
+		f.close()
+	except:
+		buf = pywese.reponse(404, "Page '" + request['FILENAME'] + "' Not Found")
+	
+	return buf
 
-pywese.HttpServer("localhost", 8080, page)
+pywese.HttpServer("localhost", 8080, ["^.*?.html$" : page])
 #----end----
 
 
