@@ -106,11 +106,11 @@ class HttpServer():
 		conn.send(func(Http(conn)))
 		conn.close()
 		
-	def complex(self. conn, arr):
+	def complex(self, conn, arr):
 		req = Http(conn)
 		for item in arr:
 			patern = re.compile(item[0])
-			if patern.match(req["FILENAME"] > 0:
+			if patern.match(req["FILENAME"]) > 0:
 				conn.send(item[1](req))
 				conn.close()
 				break
