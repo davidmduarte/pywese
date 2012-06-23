@@ -63,7 +63,7 @@ class Template(file):
 			# Include
 			for item in self.reInclude.finditer(buf):
 				if outputVars.has_key(item.groups()[0]):
-					buf_ = file(vars_[item.groups()[0]] + ".tmpl", "r").read()
+					buf_ = file(vars_[item.groups()[0]], "r").read()
 					buf = buf[:item.start()] + innerParse(buf_, outputVars) + buff[item.end():]
 			
 			# Loop
@@ -97,34 +97,16 @@ class Template(file):
 					else:
 						buf = buf[:item.start()] + buf[item.groups()[2]] + buf[item.end():]
 					
-			# Unless (If not)
-			for item in self.reUnless.finditer(buf):
-				if outputVars.has_key(item.groups()[0]):
-					if outputVars[item.groups()[0]]:
-						buf = buf[:item.start()] + buf[item.end():]
-					else:
-						buf = buf[:item.start()] + buf[item.groups()[1]] + buf[item.end():]
-					
-			# Unless Else (If Not Else)
-			for item in self.reUnlessElse.finditer(buf):
-				if outputVars.has_key(item.groups()[0]):
-					if outputVars[item.groups()[0]]:
-						buf = buf[:item.start()] + buf[item.groups()[2]] + buf[item.end():]
-					else:
-						buf = buf[:item.start()] + buf[item.groups()[1]] + buf[item.end():]
 			#print("--->  " + str(buf))						
 			return buf	
 					
 		self.buffer = self.read()
-		self.reVar = re.compile('<\s*TMPL_VAR\s+NAME\s*=\s*"(\w+?)"\s*/\s*>', re.DOTALL)
-		self.reIf = re.compile('<\s*TMPL_IF\s+NAME\s*=\s*"(\w+?)"\s*>(.*?)<\s*/\s*TMPL_IF\s*>', re.DOTALL)
-		self.reIfElse = re.compile('<\s*TMPL_IF\s+NAME\s*=\s*"(\w+?)"\s*>(.*?)<\s*TMPL_ELSE\s*>(.*?)<\s*/\s*TMPL_IF\s*>', re.DOTALL)
-		self.reUnless = re.compile('<\s*TMPL_UNLESS\s+NAME\s*=\s*"(\w+?)"\s*>(.*?)<\s*/\s*TMPL_UNLESS\s*>', re.DOTALL)
-		self.reUnlessElse = re.compile('<\s*TMPL_UNLESS\s+NAME\s*=\s*"(\w+?)"\s*>(.*?)<\s*TMPL_ELSE\s*>(.*?)<\s*/\s*TMPL_IF\s*>', re.DOTALL)
-		#self.reLoop = re.compile('<\s*TMPL_LOOP\s+NAME\s*=\s*"(\w+?)">(.*?)<\s*/\s*TMPL_LOOP\s*>', re.DOTALL)
-		self.reBeginLoop = re.compile('<\s*TMPL_LOOP\s+NAME\s*=\s*"(\w+?)">', re.DOTALL)
-		self.reEndLoop = re.compile('<\s*/\s*TMPL_LOOP\s*>', re.DOTALL)
-		self.reInclude = re.compile('<\s*TMPL_INCLUDE\s+NAME\s*=\s*"(\w+?)"\s*/\s*>', re.DOTALL)
+		self.reVar = re.compile('<\s*set\s+$(\w+?)\s*/\s*>', re.DOTALL)
+		self.reIf = re.compile('<\s*if\s+$(\w+?)\s*>(.*?)<\s*/\s*if\s*>', re.DOTALL)
+		self.reIfElse = re.compile('<\s*if\s+$(\w+?)\s*>(.*?)<\s*else\s*>(.*?)<\s*/\s*if\s*>', re.DOTALL)
+		self.reBeginLoop = re.compile('<\s*foreach\s+ $(\w+?)\s*>', re.DOTALL)
+		self.reEndLoop = re.compile('<\s*/\s*foreach\s*>', re.DOTALL)
+		self.reInclude = re.compile('<\s*include\s+(\w+?)\s*/\s*>', re.DOTALL)
 		
 		self.buffer = innerParse(self.buffer, self.outputVars)
 		
