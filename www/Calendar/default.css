@@ -99,6 +99,15 @@ body, div, ul, li, span, p, h1, h2, h3, h4, h5, h6 {
 	padding: 4px;
 }
 
+.body .calendar .month .day a {
+	text-decoration: none;
+	display: block;
+}
+
+.body .calendar .month .day a:hover {
+	background-color: #ff0;
+}
+
 .body .calendar .month .ghost {
 	color: #aaa;
 }

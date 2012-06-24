@@ -29,17 +29,20 @@ def serveHtmlPages(req):
 def servePyScripts(req):
 	print('servePyScripts')
 	global config
+	oldPath = os.getcwd()
+	
 	try:
 		# por o modulo template dentro do dict script
-		oldPath = os.getcwd()
+		print("-------------------->      " + os.getcwd())
 		os.chdir(os.path.dirname(os.path.join(config['basePath'], req['FILENAME'])))
 		script = {}
 		execfile(req['FILENAME'], script)
 		script['template'] = __import__('template')
 		buf = pywese.response(200, "text/html", script['run'](req))
-		os.chdir(oldPath)
 	except Exception, info:
 		buf = pywese.response(404, "text/html", str(info))
+		
+	os.chdir(oldPath)
 	return buf
 
 def serveDefault(req):
