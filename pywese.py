@@ -77,7 +77,7 @@ class Http(dict):
 		else:
 			return {}
 
-def response(code, contentType, buf):
+def responseWithCookies(code, contentType, cookies, buf):
 	codes = {
 		200 : "OK",
 		201 : 'Created',
@@ -87,7 +87,17 @@ def response(code, contentType, buf):
 		303 : "See Other",
 		500 : "Server Error"
 	}
-	return "HTTP/1.0 " + str(code) + " " + codes[code] + "\r\nContent-Type: " + contentType + "\r\nContent-Length: " + str(len(buf)) + "\r\n\r\n" + buf
+
+	if cookies == None:
+		cookies = ""
+	else:
+		cookies = "Set-Cookie: " + "\r\nSet-Cookie: ".join([";".join([key + "=" + cookie[key] for key in cookie.get_keys()]) for cookie in cookies])
+
+	return "HTTP/1.0 " + str(code) + " " + codes[code] + "\r\nContent-Type: " + contentType + "\r\n" + cookies + "Content-Length: " + str(len(buf)) + "\r\n\r\n" + buf
+
+def response(code, contentType, buf):
+	return responseWithCookies(code, contentType, None, buf)
+	
 
 class HttpServer:
 	def __init__(self, host, port, func, debug=False):
@@ -122,6 +132,7 @@ def simpleParse(conn, func):
 
 def listParse(conn, arr):
 	req = Http(conn)
+	print(req)
 	if req.has_key("FILENAME"):
 		for item in arr:
 			print(item)

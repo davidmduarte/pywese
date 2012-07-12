@@ -102,13 +102,14 @@ body, div, ul, li, span, p, h1, h2, h3, h4, h5, h6 {
 .body .calendar .month .day a {
 	text-decoration: none;
 	display: block;
+	color: #000;
 }
 
-.body .calendar .month .day a:hover {
+.body .calendar .month .day:hover {
 	background-color: #ff0;
 }
 
-.body .calendar .month .ghost {
+.body .calendar .month .ghost a {
 	color: #aaa;
 }
 
@@ -148,4 +149,126 @@ body, div, ul, li, span, p, h1, h2, h3, h4, h5, h6 {
 	
 	color: #bbbbbb;
 	height: 15px;
+}
+
+.fade-layer {
+	display: none;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+
+	background-color: #000;
+	opacity: 0.5;
+  	filter: alpha(opacity=50);
+}
+
+.login-popup {
+	display: none;
+	position: fixed;
+	top: 80px;
+	left: 30%;
+
+	width: 320px;
+	height: 255px;
+	padding: 40px;
+
+	background-color: #fff;
+
+	font-family: Arial;
+	font-weight: normal;
+}
+
+.login-popup .panel {
+	border-bottom: 1px dashed #777;
+	height: 45px;
+}
+
+.login-popup .title {
+	float: left;
+	font-size: 30px;
+	padding-bottom: 10px;
+
+	margin-bottom: 20px;
+	width: 140px
+}
+
+.login-popup .input-label {
+	display: block;
+	font-size: 17px;
+
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.login-popup .input-text {
+	font-size: 17px;
+	border: 1px solid #777;
+	width: 320px;
+	height: 30px;
+
+	color: #777;
+
+	padding-left: 5px;
+	padding-right: 5px;
+
+	margin-bottom: 10px;
+}
+
+.login-popup .button {
+	display: block;
+	float: right;
+	width: 60px;
+	height: 24px;
+	font-size: 17px;
+
+	text-decoration: none;
+	color: #000;
+	border: 1px solid #777;
+	padding-top: 6px;
+	text-align: center;
+	margin-top: 5px;
+}
+
+.login-popup .button:hover {
+	background-color: #aff;
+}
+
+.login-popup .info {
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+.login-popup .facebook-button {
+	display: block;
+	float: left;
+	width: 180px;
+	height: 30px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #3B5998;
+	color: #fff;
+	padding-top: 10px;
+	text-align: center;
+	text-decoration: none;
+	font-family: tahoma;
+	font-size: 15px;
+}
+
+.login-popup .close {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	width: 17px;
+	height: 17px;
+	border: 1px solid #777;
+	text-align: center;
+	text-decoration: none;
+	color: #555;
+}
+
+.login-popup .close:hover {
+	background-color: #00aaff;
+	color: #555555;
 }

@@ -3,12 +3,29 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>Bora lá emagrecer</title>
 		<link rel="stylesheet" type="text/css" href="default.css">
+		<script>
+function showPopup(id) {
+	var obj = document.getElementById(id)
+
+	obj.style.display = 'block';
+	document.getElementById('fadeLayer').style.display = 'block';
+
+}
+
+function hidePopup(id) {
+	var obj = document.getElementById(id)
+
+	obj.style.display = 'none';
+	document.getElementById('fadeLayer').style.display = 'none';
+
+}
+		</script>
 	</head>
 	<body>
 		<div class="header">
 			<ul class="menu">
 				<li>Registar</li>
-				<li>Login</li>
+				<li><a href="javascript: showPopup('loginPopup');">Login</a></li>
 			</ul>
 		</div>
 		<div class="body">
@@ -38,5 +55,30 @@
 				<marquee>Colocar aqui uma frase inspiradora</marquee>
 			</div>
 		</div>
+
+		<!-- LOGIN POPUP -->
+		<div id="fadeLayer" class="fade-layer"></div>
+
+		<div id="loginPopup" class="login-popup">
+			<div class="panel">
+				<h2 class="title">Login</h2>
+				<a class="facebook-button" href="" border="0">Login with Facebook</a>
+			</div>
+			<div style="clear: both"></div>
+
+			<label class="input-label">E-MAIL</label>
+			<input class="input-text" type="text" name="email" value="" />
+
+			<label class="input-label">PASSWORD</label>
+			<input class="input-text" type="password" name="password" value="" />
+
+			<a href="javascript: hidePopup('loginPopup')" class="button">OK</a>
+
+			<p class="info">Não está registado? Registe-se <a href="#">aqui</a>.</p>
+			<p class="info">Esqueceu-se da Password? Recupere-a <a href="#">aqui</a>.</p>
+
+			<a class="close" href="javascript: javascript: hidePopup('loginPopup')">X</a>
+		</div>
+		<!---->
 	</body>
 </html>

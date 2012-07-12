@@ -1,4 +1,5 @@
 import os
+import types
 import pywese
 import template
 
@@ -32,13 +33,15 @@ def servePyScripts(req):
 	oldPath = os.getcwd()
 	
 	try:
-		# por o modulo template dentro do dict script
-		print("-------------------->      " + os.getcwd())
 		os.chdir(os.path.dirname(os.path.join(config['basePath'], req['FILENAME'])))
 		script = {}
 		execfile(req['FILENAME'], script)
 		script['template'] = __import__('template')
-		buf = pywese.response(200, "text/html", script['run'](req))
+		output = script['run'](req)
+		if type(output) == types.ListType:
+			buf = pywese.responseWithCookies(200, "text/html", output[0], output[1])
+		else:
+			buf = pywese.response(200, "text/html", output)
 	except Exception, info:
 		buf = pywese.response(404, "text/html", str(info))
 		
@@ -57,7 +60,7 @@ server = pywese.HttpServer(
 	[
 		["^\w+\.(jpg|png|ico)$", serveImages],
 		["^\w+\.(htm|html|css)$", serveHtmlPages],
-		["^\w+\.py$", servePyScripts],
+		["^\w+$", servePyScripts],
 		["^$", serveDefault]
 	],
 	config['debug']

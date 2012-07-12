@@ -4,6 +4,22 @@
 import re
 import types
 
+def genTemplate(output, key=None):
+	tmpl = []
+	if type(output) == types.ListType:
+		tmpl.append("<foreach $" + key + ">")
+		tmpl.append(genTemplate(output[0]))
+		tmpl.append("</foreach>")
+		
+	elif type(output) == types.DictType:
+		for k in output:
+			tmpl.append(genTemplate(output[k], k))
+			
+	elif type(output) == types.IntType or type(output) == types.StringType:
+		tmpl.append("<get $" + key + " />")
+			
+	return "\n".join(tmpl)
+
 def process(filename, dicio = {}):
 	tmpl = Template(filename, dicio)
 	tmpl.parse()
