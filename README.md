@@ -5,6 +5,7 @@
 Pywese is an API to help build custom web server  
 
 Hello web example:
+	
 	import pywese
 	pywese.HttpServer("localhost", 8080, lambda request: "Hello web!!")
 
