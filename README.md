@@ -1,16 +1,16 @@
-#PyWeSe - Build custom web servers
+#PyWeSe - Build web services
 
 *PyWeSe - Python Web Server*
 
 Pywese is an API to help build custom web server  
 
-Hello web example:
+'Hello web' example:
 	
 	import pywese
 	pywese.HttpServer("localhost", 8080, lambda request: "Hello web!!")
 
 
-html pages web server example:
+html server example:
 	
 	import pywese
 
