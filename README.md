@@ -4,14 +4,12 @@
 
 Pywese is an API to help build custom web server  
 
-Examples:
-
-	# Hello web example
+Hello web example:
 	import pywese
 	pywese.HttpServer("localhost", 8080, lambda request: "Hello web!!")
 
 
-	# html pages web server example
+html pages web server example:
 	import pywese
 
 	def page(request):
