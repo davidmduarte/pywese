@@ -11,6 +11,7 @@ Hello web example:
 
 
 html pages web server example:
+	
 	import pywese
 
 	def page(request):
