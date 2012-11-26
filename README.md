@@ -7,13 +7,19 @@ Pywese is an API to help build custom web server
 Examples:
 
 \#----begin-----
+
 \# Hello web example
+
 import pywese
+
 pywese.HttpServer("localhost", 8080, lambda request: "Hello web!!")
+
 \#----end-----
 
 \#----begin----
+
 \# html pages web server example
+
 import pywese
 
 def page(request):
@@ -27,6 +33,7 @@ def page(request):
 	return buf
 
 pywese.HttpServer("localhost", 8080, ["^.*?.html$" : page])
+
 \#----end----
 
 
