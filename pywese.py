@@ -91,12 +91,37 @@ def responseWithCookies(code, contentType, cookies, buf):
 	if cookies == None:
 		cookies = ""
 	else:
-		cookies = "Set-Cookie: " + "\r\nSet-Cookie: ".join([";".join([key + "=" + cookie[key] for key in cookie.get_keys()]) for cookie in cookies])
+		cookies = "Set-Cookie: ".join([";".join([key + "=" + cookie[key] for key in cookie.get_keys()]) for cookie in cookies])
 
 	return "HTTP/1.0 " + str(code) + " " + codes[code] + "\r\nContent-Type: " + contentType + "\r\n" + cookies + "Content-Length: " + str(len(buf)) + "\r\n\r\n" + buf
 
 def response(code, contentType, buf):
 	return responseWithCookies(code, contentType, None, buf)
+
+def responseNew(**params):
+	codes = {
+		200 : "OK",
+		201 : "Created",
+		404 : "Not Found",
+		301 : "Moved Permanently",
+		302 : "Moved Temporarily",
+		303 : "See Other",
+		500 : "Server Error"
+	}
+
+	if not params.has_key("code"): 
+		params['code'] = 500
+	if not params.has_key("content-type"):
+		params['content_type'] = "html/txt"
+	
+	return "HTTP/1.0 {code} {code_description}\r\nContent-Type: {content_type}\r\n{headers}\r\nContent-Lenght: {body_length}\r\n\r\n{body}".format(
+		code = params['code'],
+		code_description = codes[params['code']],
+		content_type = params['content_type'],
+		headers = params['headers'],
+		body_length = len(params['body']),
+		body = params['body']
+	)
 	
 
 class HttpServer:
