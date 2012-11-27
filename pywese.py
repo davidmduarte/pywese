@@ -95,10 +95,7 @@ def responseWithCookies(code, contentType, cookies, buf):
 
 	return "HTTP/1.0 " + str(code) + " " + codes[code] + "\r\nContent-Type: " + contentType + "\r\n" + cookies + "Content-Length: " + str(len(buf)) + "\r\n\r\n" + buf
 
-def response(code, contentType, buf):
-	return responseWithCookies(code, contentType, None, buf)
-
-def responseNew(**params):
+def response(code, contentType, body, headers=None):
 	codes = {
 		200 : "OK",
 		201 : "Created",
@@ -109,18 +106,14 @@ def responseNew(**params):
 		500 : "Server Error"
 	}
 
-	if not params.has_key("code"): 
-		params['code'] = 500
-	if not params.has_key("content-type"):
-		params['content_type'] = "html/txt"
 	
 	return "HTTP/1.0 {code} {code_description}\r\nContent-Type: {content_type}\r\n{headers}\r\nContent-Lenght: {body_length}\r\n\r\n{body}".format(
-		code = params['code'],
-		code_description = codes[params['code']],
-		content_type = params['content_type'],
-		headers = params['headers'],
-		body_length = len(params['body']),
-		body = params['body']
+		code = code,
+		code_description = codes[code],
+		content_type = contentType,
+		headers = headers,
+		body_length = len(body),
+		body = body
 	)
 	
 
