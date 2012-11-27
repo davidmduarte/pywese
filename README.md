@@ -23,6 +23,6 @@ html server example:
 			buf = pywese.reponse(404, "Page '" + request['FILENAME'] + "' Not Found")
 		return buf
 
-	pywese.HttpServer("localhost", 8080, ["^.\*?.html$" : page])
+	pywese.HttpServer("localhost", 8080, {"^.\*?.html$" : page})
 
 
