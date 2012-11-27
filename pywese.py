@@ -129,11 +129,14 @@ class HttpServer:
 		while True:
 			print("Wait a connection")
 			conn, addr = s.accept()
+			print("Request made")
 			if type(func) == types.FunctionType:
+				print("Function Type")
 				thread.start_new_thread(simpleParse, (conn, func,))
 			elif type(func) == types.ListType:
 				thread.start_new_thread(listParse, (conn, func,))
 			elif type(func) == types.DictType:
+				print("Dict Type")
 				thread.start_new_thread(dictParse, (conn, func,))
 			else:
 				conn.send(response(404, "text/html", "Bad formed HTTPServer."))
@@ -166,10 +169,11 @@ def listParse(conn, arr):
 
 def dictParse(conn, obj):
 	req = Http(conn)
-	if req.has_key('FILENAME'):
+	print(str(req))
+	if req.has_key('URI_STRING'):
 		for key in obj.keys():
 			patern = re.compile(key)
-			if patern.match(req['FILENAME']) > 0:
+			if patern.match(req['URI_STRING']) > 0:
 				conn.send(obj[key](req))
 				conn.close()
 				break

@@ -31,8 +31,7 @@ RESTfull server example:
 	import pywese
 
 	def funcResp(request):
-		return str(request)
-
+		return "ola mundo"
 	pywese.HttpServer("localhost", 8080, {
 		"^/sporting$" : funcResp,
 		"^/sporting/team$" : funcResp,
