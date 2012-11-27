@@ -38,6 +38,6 @@ RESTfull server example:
 		"^/sporting/team$" : funcResp,
 		"^/sporting/team/coach$" : functResp,
 		"^/sporting/team/players$" : funcResp,
-		"^/sporting/team/players/(\d*)$" funcResp,
-		"^/sporting/team/players/(\d*)/stats$" funcResp
+		"^/sporting/team/players/(\d*)$" : funcResp,
+		"^/sporting/team/players/(\d*)/stats$" : funcResp
 	})
