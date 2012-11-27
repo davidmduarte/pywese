@@ -26,3 +26,18 @@ html server example:
 	pywese.HttpServer("localhost", 8080, {"^.\*?.html$" : page})
 
 
+RESTfull server example:
+
+	import pywese
+
+	def funcResp(request):
+		return str(request)
+
+	pywese.HttpServer("localhost", 8080, {
+		"^/sporting$" : funcResp,
+		"^/sporting/team$" : funcResp,
+		"^/sporting/team/coach$" : functResp,
+		"^/sporting/team/players$" : funcResp,
+		"^/sporting/team/players/(\d*)$" funcResp,
+		"^/sporting/team/players/(\d*)/stats$" funcResp
+	})
