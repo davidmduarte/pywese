@@ -36,7 +36,7 @@ RESTfull server example:
 	pywese.HttpServer("localhost", 8080, {
 		"^/sporting$" : funcResp,
 		"^/sporting/team$" : funcResp,
-		"^/sporting/team/coach$" : functResp,
+		"^/sporting/team/coach$" : funcResp,
 		"^/sporting/team/players$" : funcResp,
 		"^/sporting/team/players/(\d*)$" : funcResp,
 		"^/sporting/team/players/(\d*)/stats$" : funcResp
