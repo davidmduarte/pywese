@@ -31,8 +31,23 @@ RESTfull server example:
 	import pywese
 
 	sporting = {
-		'team' : 
-		'coach' : None
+		'team' : {
+			'players' : [
+				{
+					'name' : "Rui Patricio",
+					'posicao' : "Guarda Redes",
+					'titular' : "sim",
+					'stats' : {
+						'Defesas' : 99,
+						'Golos Marcados' : 0,
+						'Golos Sofridos' : 8,
+						'Passes' : 30
+					}
+				}
+			],
+			'coach' : 'Frank Vercauteren'
+		},
+		'president' : 'Godinho Lopes'
 	}
 
 	def funcHelp(request):
@@ -47,13 +62,8 @@ RESTfull server example:
 		""")
 
 	def funcTeam(resquest):
-		return pywese.response(200, 'html/txt', """
-			/sporting/team GET<br> 
-			/sporting/team/coach GET, POST, PUT, DELETE<br>
-			/sporting/team/players GET, POST, DELETE<br>
-			/sporting/team/players/(\d*) GET, PUT, DELETE<br>
-			/sporting/team/players/(\d*)/stats GET<br>
-		""")
+		global sporting
+		return pywese.response(200, 'html/txt', str(sporting['team']))
 
 	def funcCoach(request):
 		global sporting
