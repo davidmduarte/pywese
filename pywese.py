@@ -131,17 +131,13 @@ class HttpServer:
 			conn, addr = s.accept()
 			print("Request made")
 			if type(func) == types.FunctionType:
-				print("Function Type")
 				thread.start_new_thread(simpleParse, (conn, func,))
-			elif type(func) == types.ListType:
-				thread.start_new_thread(listParse, (conn, func,))
 			elif type(func) == types.DictType:
 				print("Dict Type")
 				thread.start_new_thread(dictParse, (conn, func,))
 			else:
 				conn.send(response(404, "text/html", "Bad formed HTTPServer."))
 				print('Bad formed HTTPServer.')
-
 
 def simpleParse(conn, func):
 	try:
@@ -151,25 +147,8 @@ def simpleParse(conn, func):
 		conn.send(response(404, "text/html", "Http server could not responde"))
 		print("Http server could not responde")
 
-def listParse(conn, arr):
-	req = Http(conn)
-	print(req)
-	if req.has_key("FILENAME"):
-		for item in arr:
-			print(item)
-			patern = re.compile(item[0])
-			if patern.match(req["FILENAME"]) > 0:
-				conn.send(item[1](req))
-				conn.close()
-				break
-		else:
-			conn.send(response(404, "text/html", "404 File Not Found (get a better template)"))
-	else:
-		print("req is empty")
-
 def dictParse(conn, obj):
 	req = Http(conn)
-	print(str(req))
 	if req.has_key('URI_STRING'):
 		for key in obj.keys():
 			patern = re.compile(key)
