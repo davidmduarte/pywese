@@ -67,9 +67,9 @@ RESTfull server example:
 
 	def funcCoach(request):
 		global sporting
-		if request['REUQEST_METHOD'] == 'GET':
+		if request['REQuEST_METHOD'] == 'GET':
 			return pywese.response(200, 'html/text', "Coach: " + sporting['coach'] + "<br>")
-		elif request['REUQEST_METHOD'] == 'POST' or :
+		elif request['REUQEST_METHOD'] == 'POST':
 			sporting['coach'] = request['POST']['name']
 			return pywese.response(201, 'html/text', "done<br>/sporting/team/Coach GET to see")
 		elif request['REUQEST_METHOD'] == 'PUT':
