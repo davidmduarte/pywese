@@ -14,7 +14,7 @@ class Properties(dict):
 			getattr(self, key)(d[key])
 
 	def queryString(self, s):
-		print("Properties.queryString")
+		#print("Properties.queryString")
 		for item in s.split("&"):
 			part = item.split("=")
 			if len(part) == 1: self.__setitem__(part[0].replace("+", " "), '')
@@ -76,6 +76,14 @@ class Http(dict):
 			return self.__getitem__('POST')
 		else:
 			return {}
+
+	def requestParams(self):
+		ret = {}
+		if self.has_key('POST'):
+			ret = dict(ret.items() + self.__getitem__('POST').items())
+		if self.has_key('GET'):
+			ret = dict(ret.item() + self.__getitem__('GET').items())
+		return ret
 
 def responseWithCookies(code, contentType, cookies, buf):
 	codes = {
