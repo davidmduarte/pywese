@@ -1,4 +1,4 @@
-"XML XHTML HTML TEMPLATE module"
+"XML XHTML HTML TEMPLATE module Server Side"
 "Falta mostrar erros na templace"
 
 import re
@@ -36,6 +36,7 @@ class Template(file):
 		self.outputVars = d
 
 	def setDebug():
+		""""""
 		pass
 
 	def parse(self):
