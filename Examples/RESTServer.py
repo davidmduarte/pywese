@@ -89,7 +89,7 @@ pywese.HttpServer("localhost", 8080, {
 	"^/sporting/team$": funcTeam,
 	"^/sporting/team/coach$": funcCoach,
 	"^/sporting/team/players$": funcPlayers,
-	"^/sporting/team/players/(\d*)$": funcPlayers,
-	"^/sporting/team/players/(\d*)/stats$": funcPlayersStats,
+	"^/sporting/team/players/(\d+)$": funcPlayers,
+	"^/sporting/team/players/(\d+)/stats$": funcPlayersStats,
 	"^/sporting/president$" : funcPresident
 })
