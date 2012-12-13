@@ -23,13 +23,13 @@ sporting = {
 
 def funcHelp(request):
 	return pywese.response(200, 'html/txt', """
-		/sporting GET<br>
-		/sporting/team GET<br> 
-		/sporting/team/coach GET, POST, PUT, DELETE<br>
-		/sporting/team/players GET, POST, DELETE<br>
-		/sporting/team/players/(\d*) GET, PUT, DELETE<br>
-		/sporting/team/players/(\d*)/stats GET<br>
-		/sporting/president GET, POST, PUT, DELETE<br>
+		GET /sporting<br>
+		GET /sporting/team<br> 
+		GET|POST|PUT|DELETE /sporting/team/coach<br>
+		GET|POST|DELETE /sporting/team/players<br>
+		GET|PUT|DELETE /sporting/team/players/{id}<br>
+		GET /sporting/team/players/{id}/stats<br>
+		GET|POST|PUT|DELETE /sporting/president<br>
 	""")
 
 def funcTeam(resquest):
